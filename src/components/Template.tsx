@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Button from './Button';
 import useNavigateFunction from '../hooks/useNavigateFunction';
 
-export default function Template(): JSX.Element {
+export default function Template() {
   const goHome = useNavigateFunction('/');
   const goLogin = useNavigateFunction('/auth/login');
   const goSignup = useNavigateFunction('/auth/signup');

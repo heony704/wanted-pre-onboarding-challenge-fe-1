@@ -4,18 +4,26 @@ type ButtonProps = {
   value?: string;
   color?: string;
   filled?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  onClick?: () => void;
   children?: React.ReactNode;
 };
 
 interface ContainerProps {
   color: string;
   filled: boolean;
+  disabled: boolean;
 }
 
-export default function Button({ color = '#0288d1', filled = false, onClick, children }: ButtonProps) {
+export default function Button({
+  color = '#0288d1',
+  filled = false,
+  disabled = false,
+  onClick,
+  children,
+}: ButtonProps) {
   return (
-    <Container color={color} filled={filled} onClick={onClick}>
+    <Container color={disabled ? 'darkgray' : color} filled={filled} disabled={disabled} onClick={onClick}>
       {children}
     </Container>
   );
@@ -28,11 +36,11 @@ const Container = styled.button<ContainerProps>`
   font-size: 1rem;
   border-radius: 0.7rem;
   padding: 0.2rem 0.5rem;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   user-select: none;
   transition: all 0.2s ease-out;
 
   :hover {
-    filter: brightness(1.2);
+    ${({ disabled }) => !disabled && 'filter: brightness(1.2);'};
   }
 `;

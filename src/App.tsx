@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Template from './components/Template';
 import TodoList from './components/TodoList';
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 
 function App() {
   return (
@@ -13,8 +15,8 @@ function App() {
             <Route path=":id" />
           </Route>
           <Route path="auth">
-            <Route path="login" />
-            <Route path="signup" />
+            <Route path="login" element={<LoginForm />} />
+            <Route path="signup" element={<SignUpForm />} />
           </Route>
         </Route>
       </Routes>

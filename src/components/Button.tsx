@@ -5,14 +5,13 @@ type ButtonProps = {
   color?: string;
   filled?: boolean;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
 };
 
 interface ContainerProps {
   color: string;
   filled: boolean;
-  disabled: boolean;
 }
 
 export default function Button({
@@ -36,11 +35,18 @@ const Container = styled.button<ContainerProps>`
   font-size: 1rem;
   border-radius: 0.7rem;
   padding: 0.2rem 0.5rem;
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  cursor: pointer;
   user-select: none;
   transition: all 0.2s ease-out;
 
   :hover {
-    ${({ disabled }) => !disabled && 'filter: brightness(1.2);'};
+    filter: brightness(1.2);
+  }
+
+  :disabled {
+    cursor: default;
+    :hover {
+      filter: none;
+    }
   }
 `;

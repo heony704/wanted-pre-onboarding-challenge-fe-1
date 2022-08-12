@@ -3,18 +3,22 @@ import { Outlet } from 'react-router-dom';
 import useNavigateFunction from '../hooks/useNavigateFunction';
 import LargeButton from './LargeButton';
 import Todo from './Todo';
+import { tokenToString } from 'typescript';
 
 export default function TodoList() {
-  const goAddTodo = useNavigateFunction('/new');
+  const goNewTodo = useNavigateFunction('/newtodo');
 
   return (
     <Container>
       <div>
-        <LargeButton color="#a1887f" filled={true} onClick={goAddTodo}>
+        <LargeButton color="#a1887f" filled={true} onClick={goNewTodo}>
           ADD +
         </LargeButton>
-        <Todo title="dafsdfasdfd" />
-        <Todo title="dafsdfasdfd" />
+        <div>
+          {/* {fetch('https://localhost:8080/todos', { headers: { Authorization: 'test' } })
+            .then((response) => response.json())
+            .then((data) => console.log(data))} */}
+        </div>
       </div>
       <div>
         <Outlet />

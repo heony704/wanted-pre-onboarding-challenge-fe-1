@@ -47,7 +47,7 @@ export default function NewTodo() {
           CONFIRM
         </Button>
         <Button color="#D32F2F" filled={true} onClick={goHome}>
-          CANSEL
+          CANCEL
         </Button>
       </div>
     </Form>

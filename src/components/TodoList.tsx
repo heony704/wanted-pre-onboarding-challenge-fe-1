@@ -3,10 +3,46 @@ import { Outlet } from 'react-router-dom';
 import useNavigateFunction from '../hooks/useNavigateFunction';
 import LargeButton from './LargeButton';
 import Todo from './Todo';
-import { tokenToString } from 'typescript';
+import { useState, useEffect } from 'react';
 
-export default function TodoList() {
+type TodoListProps = {
+  loginToken: string | null;
+};
+
+type TodoType = {
+  title: string;
+  content: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export default function TodoList({ loginToken }: TodoListProps) {
   const goNewTodo = useNavigateFunction('/newtodo');
+
+  const [todoList, setTodoList] = useState<TodoType[]>([]);
+
+  useEffect(() => {
+    if (loginToken !== null) {
+      fetch('http://localhost:8080/todos', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: loginToken,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error('네크워크 응답 오류');
+          return response.json();
+        })
+        .then((data) => {
+          setTodoList(data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  });
 
   return (
     <Container>
@@ -15,9 +51,9 @@ export default function TodoList() {
           ADD +
         </LargeButton>
         <div>
-          {/* {fetch('https://localhost:8080/todos', { headers: { Authorization: 'test' } })
-            .then((response) => response.json())
-            .then((data) => console.log(data))} */}
+          {todoList.map((todo) => (
+            <Todo id={todo.id} title={todo.title} />
+          ))}
         </div>
       </div>
       <div>

@@ -1,12 +1,15 @@
 import styled from 'styled-components';
+import useNavigateFunction from '../hooks/useNavigateFunction';
 
 type TodoProps = {
+  id?: string;
   title?: string;
-  onClick?: () => void;
 };
 
-export default function Todo({ title, onClick }: TodoProps) {
-  return <Container onClick={onClick}>{title}</Container>;
+export default function Todo({ id, title }: TodoProps) {
+  const goTodoContents = useNavigateFunction('/' + id);
+
+  return <Container onClick={goTodoContents}>{title}</Container>;
 }
 
 const Container = styled.pre`

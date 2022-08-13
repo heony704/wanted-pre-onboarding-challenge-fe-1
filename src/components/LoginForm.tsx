@@ -4,11 +4,15 @@ import { useState } from 'react';
 import useNavigationFunction from '../hooks/useNavigateFunction';
 import ValidCondition from './ValidCondition';
 
+type LoginFormProps = {
+  setToken: React.Dispatch<React.SetStateAction<null>>;
+};
+
 interface FormProps {
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export default function LoginForm() {
+export default function LoginForm({ setToken }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -49,6 +53,7 @@ export default function LoginForm() {
         return res.json();
       })
       .then((data) => {
+        setToken(data.token);
         goHome();
       })
       .catch((err) => {

@@ -1,17 +1,70 @@
 import styled from 'styled-components';
 import Button from './Button';
 import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import useNavigationFunction from '../hooks/useNavigateFunction';
 
-export default function TodoContents() {
+type TodoListProps = {
+  loginToken: string | null;
+};
+
+export default function TodoContents({ loginToken }: TodoListProps) {
+  const { id } = useParams();
+
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    if (loginToken === null) return;
+    fetch('http://localhost:8080/todos/' + id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: loginToken,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('네크워크 응답 오류');
+        return response.json();
+      })
+      .then((data) => {
+        setTitle(data.data.title);
+        setContent(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
+  const goHome = useNavigationFunction('/');
+
+  const deleteTodo = () => {
+    if (loginToken === null) return;
+    fetch('http://localhost:8080/todos/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: loginToken,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('네크워크 응답 오류');
+        goHome();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Container>
-      <pre>title</pre>
-      <pre>content</pre>
+      <pre>{title}</pre>
+      <pre>{content}</pre>
       <div>
         <Button color="#0288d1" filled={true}>
           EDIT
         </Button>
-        <Button color="#D32F2F" filled={true}>
+        <Button color="#D32F2F" filled={true} onClick={deleteTodo}>
           DELETE
         </Button>
       </div>

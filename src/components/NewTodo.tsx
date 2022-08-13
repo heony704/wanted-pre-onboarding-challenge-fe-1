@@ -3,7 +3,11 @@ import Button from './Button';
 import { useState } from 'react';
 import useNavigateFunction from '../hooks/useNavigateFunction';
 
-export default function NewTodo() {
+type NewTodoProps = {
+  loginToken: string | null;
+};
+
+export default function NewTodo({ loginToken }: NewTodoProps) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -15,27 +19,31 @@ export default function NewTodo() {
   };
 
   const goHome = useNavigateFunction('/');
+  const goLogin = useNavigateFunction('/login');
 
   const onCreateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    fetch('http://localhost:8080/todos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'test',
-      },
-      body: JSON.stringify({
-        title: title,
-        content: content,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error('네크워크 응답 오류');
-        else goHome();
+    if (loginToken === null) goLogin();
+    else {
+      fetch('http://localhost:8080/todos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: loginToken,
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+        }),
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          if (!response.ok) throw new Error('네크워크 응답 오류');
+          else goHome();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (

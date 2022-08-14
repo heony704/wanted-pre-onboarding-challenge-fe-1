@@ -46,19 +46,21 @@ export default function TodoList({ loginToken }: TodoListProps) {
 
   return (
     <Container>
-      <div>
-        <LargeButton color="#a1887f" filled={true} onClick={goNewTodo}>
-          ADD +
-        </LargeButton>
-        <div>
+      <TodoListWrap>
+        <ButtonWrap>
+          <LargeButton color="#a1887f" filled={true} onClick={goNewTodo}>
+            ADD +
+          </LargeButton>
+        </ButtonWrap>
+        <Titles>
           {todoList.map((todo) => (
             <Todo id={todo.id} title={todo.title} />
           ))}
-        </div>
-      </div>
-      <div>
+        </Titles>
+      </TodoListWrap>
+      <TodoContentsWrap>
         <Outlet />
-      </div>
+      </TodoContentsWrap>
     </Container>
   );
 }
@@ -66,20 +68,39 @@ export default function TodoList({ loginToken }: TodoListProps) {
 const Container = styled.div`
   display: flex;
   width: 100%;
+  align-items: stretch;
 
   > div + div {
-    margin-left: 2.5rem;
+    margin-left: 2rem;
   }
+`;
 
-  > div {
-    flex: 1 1 0;
-    width: 0;
-    height: 100%;
-  }
+const TodoListWrap = styled.div`
+  flex-grow: 8;
+  width: 0;
 
-  > div > button {
+  display: flex;
+  flex-direction: column;
+
+  button {
     margin-bottom: 1rem;
   }
+`;
+
+const TodoContentsWrap = styled.div`
+  flex-grow: 9;
+  width: 0;
+`;
+
+const ButtonWrap = styled.div`
+  padding-right: 16px;
+`;
+
+const Titles = styled.div`
+  flex-grow: 1;
+  height: 0;
+  overflow-y: scroll;
+  padding-right: 8px;
 
   pre + pre {
     margin-top: 1rem;

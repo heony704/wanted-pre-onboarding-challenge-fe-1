@@ -58,16 +58,16 @@ export default function TodoContents({ loginToken }: TodoListProps) {
 
   return (
     <Container>
-      <pre>{title}</pre>
-      <pre>{content}</pre>
-      <div>
+      <Title>{title}</Title>
+      <Content>{content}</Content>
+      <Buttons>
         <Button color="#0288d1" filled={true}>
           EDIT
         </Button>
         <Button color="#D32F2F" filled={true} onClick={deleteTodo}>
           DELETE
         </Button>
-      </div>
+      </Buttons>
     </Container>
   );
 }
@@ -81,23 +81,25 @@ const Container = styled.div`
   border-radius: 1.3em;
   padding: 1rem;
 
-  pre {
-    width: 100%;
-
-    &:first-child {
-      font-size: 1.6rem;
-      font-weight: 500;
-    }
-    &:nth-child(2) {
-      flex-grow: 1;
-    }
-  }
-
   > * + * {
     margin-top: 0.5rem;
   }
+`;
 
-  > div > button + button {
+const Title = styled.pre`
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 500;
+`;
+
+const Content = styled.pre`
+  width: 100%;
+  flex-grow: 1;
+  height: 0;
+`;
+
+const Buttons = styled.div`
+  button + button {
     margin-left: 1rem;
   }
 `;

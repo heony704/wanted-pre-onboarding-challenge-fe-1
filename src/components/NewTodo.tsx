@@ -75,7 +75,6 @@ const Form = styled.form`
     width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
-    resize: none;
 
     &::placeholder {
       color: lightgray;

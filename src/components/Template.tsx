@@ -57,7 +57,7 @@ const Container = styled.div`
   }
 `;
 
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -87,6 +87,7 @@ const Buttons = styled.div`
 `;
 
 const Main = styled.main`
+  width: 100%;
   display: flex;
   flex-grow: 1;
   justify-content: center;

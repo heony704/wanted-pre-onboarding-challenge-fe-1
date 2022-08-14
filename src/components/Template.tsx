@@ -61,7 +61,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4rem;
+  height: 4.5rem;
   width: 100%;
 `;
 
@@ -91,7 +91,6 @@ const Main = styled.main`
   display: flex;
   flex-grow: 1;
   justify-content: center;
-  margin-top: 1rem;
 `;
 
 const Footer = styled.footer`

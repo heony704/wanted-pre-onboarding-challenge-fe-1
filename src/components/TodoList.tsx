@@ -53,8 +53,8 @@ export default function TodoList({ loginToken }: TodoListProps) {
           </LargeButton>
         </ButtonWrap>
         <Titles>
-          {todoList.map((todo) => (
-            <Todo id={todo.id} title={todo.title} />
+          {todoList.map((todo, index) => (
+            <Todo id={todo.id} title={todo.title} key={index} />
           ))}
         </Titles>
       </TodoListWrap>

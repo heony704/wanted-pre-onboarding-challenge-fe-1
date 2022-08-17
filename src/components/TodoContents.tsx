@@ -3,6 +3,7 @@ import Button from './Button';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useNavigationFunction from '../hooks/useNavigateFunction';
+import EditContents from './EditContents';
 
 type TodoListProps = {
   loginToken: string | null;
@@ -56,19 +57,36 @@ export default function TodoContents({ loginToken }: TodoListProps) {
       });
   };
 
+  const [editMode, setEditMode] = useState(false);
+  const onEditMode = () => {
+    setEditMode(true);
+  };
+  const offEditMode = () => {
+    setEditMode(false);
+  };
+
+  if (loginToken === null) return <></>;
+  if (id === undefined) return <></>;
+
   return (
-    <Container>
-      <Title>{title}</Title>
-      <Content>{content}</Content>
-      <Buttons>
-        <Button color="#0288d1" filled={true}>
-          EDIT
-        </Button>
-        <Button color="#D32F2F" filled={true} onClick={deleteTodo}>
-          DELETE
-        </Button>
-      </Buttons>
-    </Container>
+    <>
+      {editMode ? (
+        <EditContents offEditMode={offEditMode} id={id} title={title} content={content} loginToken={loginToken} />
+      ) : (
+        <Container>
+          <Title>{title}</Title>
+          <Content>{content}</Content>
+          <Buttons>
+            <Button color="#0288d1" filled={true} onClick={onEditMode}>
+              EDIT
+            </Button>
+            <Button color="#D32F2F" filled={true} onClick={deleteTodo}>
+              DELETE
+            </Button>
+          </Buttons>
+        </Container>
+      )}
+    </>
   );
 }
 

@@ -48,10 +48,10 @@ export default function EditContents({ offEditMode, id, title, content, loginTok
       <textarea name="title" value={titleValue} onChange={onChangeTitle} placeholder="todo title" />
       <textarea name="content" value={contentValue} onChange={onChangeContent} placeholder="todo content" />
       <div>
-        <Button color="#0288d1" filled={true} onClick={updateTodo}>
+        <Button type="submit" color="#0288d1" filled={true} onClick={updateTodo}>
           EDIT
         </Button>
-        <Button color="#D32F2F" filled={true} onClick={offEditMode}>
+        <Button type="button" color="#D32F2F" filled={true} onClick={offEditMode}>
           CANCEL
         </Button>
       </div>

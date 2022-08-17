@@ -51,10 +51,10 @@ export default function NewTodo({ loginToken }: NewTodoProps) {
       <textarea name="title" value={title} onChange={onChangeTitle} placeholder="todo title" />
       <textarea name="content" value={content} onChange={onChangeContent} placeholder="todo content" />
       <div>
-        <Button color="#0288d1" filled={true} onClick={onCreateTodo}>
+        <Button type="submit" color="#0288d1" filled={true} onClick={onCreateTodo}>
           CONFIRM
         </Button>
-        <Button color="#D32F2F" filled={true} onClick={goHome}>
+        <Button type="button" color="#D32F2F" filled={true} onClick={goHome}>
           CANCEL
         </Button>
       </div>

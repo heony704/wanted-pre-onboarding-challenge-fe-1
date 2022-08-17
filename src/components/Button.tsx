@@ -5,6 +5,7 @@ type ButtonProps = {
   color?: string;
   filled?: boolean;
   disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
 };
@@ -18,11 +19,12 @@ export default function Button({
   color = '#0288d1',
   filled = false,
   disabled = false,
+  type = 'submit',
   onClick,
   children,
 }: ButtonProps) {
   return (
-    <Container color={disabled ? 'darkgray' : color} filled={filled} disabled={disabled} onClick={onClick}>
+    <Container color={disabled ? 'darkgray' : color} filled={filled} type={type} disabled={disabled} onClick={onClick}>
       {children}
     </Container>
   );
